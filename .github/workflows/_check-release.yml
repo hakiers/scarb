@@ -96,5 +96,5 @@ jobs:
           ! grep -E 'cairo-lang-.*=\s*"\*"' Cargo.toml 
       - name: Check ciaro-lang version in Cargo.lock
         run: |
-          ! grep -E 'cairo-lang-.*=\s*\{.*git"' Cargo.lock
+          ! grep -E 'cairo-lang-.*=\s*\{.*git"' Cargo.toml
 

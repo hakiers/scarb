@@ -6,9 +6,12 @@ on:
     branches:
       - 'main'
 
+# Considered names of branches:
+# release/1.2.3, release/v1.2.3, release-1.2.3, release-v1.2.3
+
 jobs:
   dispatch-experiment:
-    if: startsWIth(github.head_ref, 'release/')
+    if: startsWith(github.head_ref, 'release/') || startsWith(github.head_ref, 'release-')
     runs-on: ubuntu-latest
 
     steps: 
@@ -16,7 +19,15 @@ jobs:
         env:
           RAW_REF: ${{ github.head_ref }}
         run: |
-          VERSION=${RAW_REF#release/}
+          VERSION=${RAW_REF}
+
+          # Strip 'release/' or 'release-' prefix from the branch name to get the version
+          VERSION=${VERSION#release/}
+          VERSION=${VERSION#release-}
+
+          # Strip 'v' prefix from the version if it exists
+          VERSION=${VERSION#v}
+
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Trigger Release Experiment

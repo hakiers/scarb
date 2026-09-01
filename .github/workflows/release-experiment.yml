@@ -1,0 +1,30 @@
+name: Trigger Release Experiment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - 'release/**'
+
+jobs:
+  dispatch-experiment:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Extract version from branch name
+        env:
+          RAW_REF: ${{ github.head_ref }}
+        run: |
+          VERSION=${RAW_REF#release/}
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Trigger Release Experiment
+        env:
+          GH_TOKEN: ${{ secrets.MAAT_EXPERIMENTS_DISPATCH_TOKEN }}
+        run: |
+          gh workflow run experiment.yml \
+            --repo software-mansion/maat \
+            --ref main \
+            -f workspace="release" \
+            -f scarb="$VERSION" \
+            -f notify_team="true"

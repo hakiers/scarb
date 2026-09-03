@@ -53,11 +53,11 @@ axum = { version = "0.8.6", default-features = false, features = ["http1", "toki
 bumpalo = "=3.17.0"
 cairo-air = { git = "https://github.com/starkware-libs/stwo-cairo", rev = "467d5c6d" }
 cairo-annotations = "1.0.0"
-cairo-lang-casm = "2.20.0"
-cairo-lang-compiler = "2.20.0"
+cairo-lang-casm = "*"
+cairo-lang-compiler = "*"
 cairo-lang-defs = "2.20.0"
 cairo-lang-diagnostics = "2.20.0"
-cairo-lang-doc = "2.20.0"
+cairo-lang-doc = "*"
 cairo-lang-executable = "2.20.0"
 cairo-lang-executable-plugin = "2.20.0"
 cairo-lang-filesystem = "2.20.0"
@@ -195,3 +195,8 @@ codegen-units = 1
 inherits = "test"
 strip = "debuginfo"
 opt-level = 3
+
+[patch.crates-io]
+cairo-lang-casm = { git = "https://github.com/starkware-libs/cairo", rev = "4aa14fe" }
+cairo-lang-compiler = { git = "https://github.com/starkware-libs/cairo", rev = "4aa14fe" }
+cairo-lang-doc = { git = "https://github.com/starkware-libs/cairo", rev = "4aa14fe" }

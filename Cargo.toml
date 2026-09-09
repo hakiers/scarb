@@ -53,8 +53,8 @@ axum = { version = "0.8.6", default-features = false, features = ["http1", "toki
 bumpalo = "=3.17.0"
 cairo-air = { git = "https://github.com/starkware-libs/stwo-cairo", rev = "467d5c6d" }
 cairo-annotations = "1.0.0"
-cairo-lang-casm = "2.20.0"
-cairo-lang-compiler = "2.20.0"
+cairo-lang-casm = "*"
+cairo-lang-compiler = "*"
 cairo-lang-defs = "2.20.0"
 cairo-lang-diagnostics = "2.20.0"
 cairo-lang-doc = "2.20.0"
@@ -67,7 +67,7 @@ cairo-lang-macro-v1 = { version = "0.1", package = "cairo-lang-macro", features 
 cairo-lang-parser = "2.20.0"
 cairo-lang-plugins = "2.20.0"
 cairo-lang-primitive-token = "1"
-cairo-lang-runner = "2.20.0"
+cairo-lang-runner = "*"
 cairo-lang-semantic = "2.20.0"
 cairo-lang-sierra = "2.20.0"
 cairo-lang-sierra-generator = "2.20.0"
@@ -75,7 +75,7 @@ cairo-lang-sierra-to-casm = "2.20.0"
 cairo-lang-sierra-type-size = "2.20.0"
 cairo-lang-starknet = "2.20.0"
 cairo-lang-starknet-classes = "2.20.0"
-cairo-lang-syntax = "2.20.0"
+cairo-lang-syntax = "*"
 cairo-lang-test-plugin = "2.20.0"
 cairo-lang-test-runner = "2.20.0"
 cairo-lang-utils = { version = "2.20.0", features = ["tracing"] }
@@ -195,3 +195,6 @@ codegen-units = 1
 inherits = "test"
 strip = "debuginfo"
 opt-level = 3
+
+[patch.crates-io]
+cairo-lang-casm = { git = "https://github.com/starkware-libs/cairo", rev = "4aa14fe" }

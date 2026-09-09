@@ -54,7 +54,7 @@ bumpalo = "=3.17.0"
 cairo-air = { git = "https://github.com/starkware-libs/stwo-cairo", rev = "467d5c6d" }
 cairo-annotations = "1.0.0"
 cairo-lang-casm = "*"
-cairo-lang-compiler = "*"
+cairo-lang-compiler = "2.20.0"
 cairo-lang-defs = "2.20.0"
 cairo-lang-diagnostics = "2.20.0"
 cairo-lang-doc = "2.20.0"

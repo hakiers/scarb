@@ -23,13 +23,13 @@ jobs:
 
           echo "tag=v$version" >> "$GITHUB_OUTPUT"
 
-      - name: Fetch scripts/crates_list.sh from that Cairo release
+      - name: Fetch scripts/crates_list.sh
         env:
           TAG: ${{ steps.cairo-tag.outputs.tag }}
         run: |
           curl -sSfL "https://raw.githubusercontent.com/starkware-libs/cairo/$TAG/scripts/crates_list.sh" -o crates_list.sh
 
-      - name: Parse crate names out of it
+      - name: Parse crate names
         id: parse
         run: |
           # Only eval the CRATES array definition itself, not the rest of the
@@ -39,7 +39,7 @@ jobs:
 
           # Registry-pinned crates that aren't part of the Cairo repo's own
           # release list, but should still resolve to a single registry version.
-          extra_names=(cairo-lang-language-server)
+          extra_names=(cairo-lang-language-server cairo-lint)
 
           names_json=$(printf '%s\n' "${CRATES[@]}" "${extra_names[@]}" \
             | jq -R -s -c 'split("\n") | map(select(length > 0)) | unique')
@@ -54,9 +54,6 @@ jobs:
           # errors out instead of silently re-resolving if the lock is stale).
           metadata=$(cargo metadata --locked --format-version=1)
 
-          # Keep only packages that are in our target crate list. A local/workspace
-          # package (no `source`) sharing a name with one of them is also a bad
-          # sign, so it isn't excluded here.
           candidates=$(jq -c --argjson names "$NAMES_JSON" '
             .packages
             | map(select(.name as $n | $names | index($n)))
